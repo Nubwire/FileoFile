@@ -1,21 +1,17 @@
 {
-  "name": "fileofile-frontend",
+  "name": "fileofile-api",
   "version": "1.0.0",
-  "type": "module",
+  "description": "Document management API for fileofile",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "vue": "^3.3.0",
-    "vue-router": "^4.2.0",
-    "pinia": "^2.1.0",
-    "vuetify": "^3.3.0",
-    "@mdi/font": "^7.0.0"
+    "itty-router": "^4.0.0",
+    "jose": "^5.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.2.0",
-    "vite": "^4.4.0"
+    "wrangler": "^3.0.0"
   }
 }
