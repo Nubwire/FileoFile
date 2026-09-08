@@ -3,8 +3,8 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
         <v-card class="pa-6" elevation="10" rounded="lg">
-          <v-card-title class="text-center text-h4 font-weight-bold mb-4">
-            fileofile
+          <v-card-title class="d-flex justify-center mb-4">
+            <img src="/logo.png" alt="fileofile" class="login-logo" />
           </v-card-title>
           <v-card-subtitle class="text-center text-body-1 mb-6">
             {{ isRegister ? 'Create your account' : 'Sign in to your account' }}
@@ -107,5 +107,11 @@ async function handleSubmit() {
 .login-container {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+}
+
+.login-logo {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
 }
 </style>

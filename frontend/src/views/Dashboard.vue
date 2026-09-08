@@ -3,7 +3,7 @@
     <v-navigation-drawer v-model="drawer" app permanent>
       <v-list>
         <v-list-item>
-          <v-list-item-title class="text-h6 font-weight-bold">fileofile</v-list-item-title>
+          <img src="/logo.png" alt="fileofile" class="sidebar-logo" />
         </v-list-item>
 
         <v-divider class="my-2" />
@@ -131,3 +131,13 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style scoped>
+.sidebar-logo {
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 8px 0;
+}
+</style>
