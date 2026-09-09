@@ -32,8 +32,14 @@ router.post('/api/auth/login', handleAuth.login);
 router.post('/api/auth/register', handleAuth.register);
 
 // Protected routes
-router.all('/api/documents/*', authMiddleware, handleDocuments);
-router.all('/api/users/*', authMiddleware, handleUsers);
+router.get('/api/documents', authMiddleware, handleDocuments.GET);
+router.get('/api/documents/:id', authMiddleware, handleDocuments.GET);
+router.post('/api/documents', authMiddleware, handleDocuments.POST);
+router.put('/api/documents/:id', authMiddleware, handleDocuments.PUT);
+router.delete('/api/documents/:id', authMiddleware, handleDocuments.DELETE);
+
+router.get('/api/users', authMiddleware, handleUsers.GET);
+router.get('/api/users/:id', authMiddleware, handleUsers.GET);
 
 // Health check
 router.get('/api/health', () => new Response('OK', { status: 200 }));

@@ -19,7 +19,6 @@ export async function authMiddleware(request) {
     });
   }
 
-  // Add user to request
+  // Add user to request and continue to the next handler
   request.user = payload;
-  return request;
 }
