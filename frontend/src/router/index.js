@@ -3,19 +3,24 @@ import { useAuthStore } from '../stores/auth';
 
 const routes = [
   {
-    path: '/login',
-    component: () => import('../views/Login.vue'),
-    meta: { requiresGuest: true }
+    path: '/',
+    component: () => import('../views/Home.vue'),
+    meta: { title: 'FileoFile — Secure Document Storage for Insurance Brokers' }
   },
   {
-    path: '/',
+    path: '/login',
+    component: () => import('../views/Login.vue'),
+    meta: { requiresGuest: true, title: 'Login — FileoFile' }
+  },
+  {
+    path: '/dashboard',
     component: () => import('../views/Dashboard.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, title: 'Dashboard — FileoFile' }
   },
   {
     path: '/documents',
     component: () => import('../views/Documents.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, title: 'Documents — FileoFile' }
   }
 ];
 
@@ -30,10 +35,14 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login');
   } else if (to.meta.requiresGuest && authStore.isAuthenticated) {
-    next('/');
+    next('/dashboard');
   } else {
     next();
   }
+});
+
+router.afterEach((to) => {
+  document.title = to.meta.title || 'FileoFile';
 });
 
 export default router;

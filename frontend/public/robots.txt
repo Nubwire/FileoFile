@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /documents
+
+Sitemap: https://fileofile.pages.dev/sitemap.xml

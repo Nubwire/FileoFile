@@ -8,7 +8,7 @@
 
         <v-divider class="my-2" />
 
-        <v-list-item to="/" active-class="primary--text">
+        <v-list-item to="/dashboard" active-class="primary--text">
           <v-list-item-icon>
             <v-icon>mdi-view-dashboard</v-icon>
           </v-list-item-icon>

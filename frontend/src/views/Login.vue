@@ -97,7 +97,7 @@ async function handleSubmit() {
     } else {
       await authStore.login(email.value, password.value);
     }
-    router.push('/');
+    router.push('/dashboard');
   } catch (error) {
     alert(error.message);
   } finally {
