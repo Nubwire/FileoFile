@@ -7,6 +7,43 @@ import {
 } from '../models/document';
 
 export const handleDocuments = {
+  async download(request) {
+    try {
+      const url = new URL(request.url);
+      const parts = url.pathname.split('/').filter(Boolean);
+      // path shape: api / documents / :id / download
+      const id = parts[2];
+
+      const document = await getDocument(request.env.DB, id, request.user.userId);
+      if (!document) {
+        return new Response(JSON.stringify({ error: 'Document not found' }), {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      const object = await request.env.FILES.get(document.file_key);
+      if (!object) {
+        return new Response(JSON.stringify({ error: 'File missing from storage' }), {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      const headers = new Headers();
+      headers.set('Content-Type', document.file_type || 'application/octet-stream');
+      headers.set('Content-Disposition', `attachment; filename="${document.file_name}"`);
+      headers.set('Content-Length', String(document.file_size));
+
+      return new Response(object.body, { status: 200, headers });
+    } catch (error) {
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  },
+
   async GET(request) {
     try {
       const url = new URL(request.url);

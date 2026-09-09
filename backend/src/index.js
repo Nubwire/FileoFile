@@ -32,6 +32,7 @@ router.post('/api/auth/login', handleAuth.login);
 router.post('/api/auth/register', handleAuth.register);
 
 // Protected routes
+router.get('/api/documents/:id/download', authMiddleware, handleDocuments.download);
 router.get('/api/documents', authMiddleware, handleDocuments.GET);
 router.get('/api/documents/:id', authMiddleware, handleDocuments.GET);
 router.post('/api/documents', authMiddleware, handleDocuments.POST);

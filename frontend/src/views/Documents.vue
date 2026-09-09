@@ -46,6 +46,9 @@
                 <div class="text-caption">Uploaded: {{ new Date(doc.created_at).toLocaleDateString() }}</div>
               </v-card-text>
               <v-card-actions>
+                <v-btn small text color="primary" :loading="downloadingId === doc.id" @click="downloadDocument(doc)">
+                  <v-icon small>mdi-download</v-icon>
+                </v-btn>
                 <v-btn small text color="error" @click="deleteDocument(doc.id)">
                   <v-icon small>mdi-delete</v-icon>
                 </v-btn>
@@ -116,6 +119,7 @@ const drawer = ref(true);
 const documents = ref([]);
 const showUpload = ref(false);
 const uploading = ref(false);
+const downloadingId = ref(null);
 const file = ref(null);
 const title = ref('');
 const description = ref('');
@@ -168,6 +172,36 @@ async function uploadDocument() {
     console.error('Upload failed:', error);
   } finally {
     uploading.value = false;
+  }
+}
+
+async function downloadDocument(doc) {
+  downloadingId.value = doc.id;
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/documents/${doc.id}/download`, {
+      headers: {
+        'Authorization': `Bearer ${authStore.token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Download failed');
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = doc.file_name;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Download failed:', error);
+    alert('Could not download this file. Please try again.');
+  } finally {
+    downloadingId.value = null;
   }
 }
 
