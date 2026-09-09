@@ -6,6 +6,27 @@ import { handleUsers } from './routes/users';
 
 const router = Router();
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+function withCors(response) {
+  const headers = new Headers(response.headers);
+  for (const [key, value] of Object.entries(corsHeaders)) {
+    headers.set(key, value);
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
+// Handle CORS preflight requests
+router.options('*', () => new Response(null, { status: 204, headers: corsHeaders }));
+
 // Public routes
 router.post('/api/auth/login', handleAuth.login);
 router.post('/api/auth/register', handleAuth.register);
@@ -24,6 +45,7 @@ export default {
   async fetch(request, env, ctx) {
     // Inject env into request context
     request.env = env;
-    return router.handle(request);
+    const response = await router.handle(request);
+    return withCors(response);
   }
 };
