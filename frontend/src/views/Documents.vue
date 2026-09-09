@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app permanent>
+    <v-navigation-drawer v-model="drawer" app permanent class="app-drawer">
       <v-list>
         <v-list-item>
           <img src="/logo.png" alt="fileofile" class="sidebar-logo" />
@@ -35,8 +35,9 @@
     <v-main>
       <v-container>
         <v-row>
+        <v-row v-if="documents.length > 0">
           <v-col v-for="doc in documents" :key="doc.id" cols="12" sm="6" md="4" lg="3">
-            <v-card hover>
+            <v-card hover class="index-card">
               <v-card-text>
                 <v-icon large color="primary">mdi-file-document</v-icon>
                 <div class="text-subtitle-1 font-weight-bold mt-2">{{ doc.title }}</div>
@@ -51,6 +52,21 @@
               </v-card-actions>
             </v-card>
           </v-col>
+        </v-row>
+
+        <v-row v-else>
+          <v-col cols="12">
+            <div class="empty-state text-center py-12">
+              <v-icon size="56" color="secondary">mdi-folder-open-outline</v-icon>
+              <div class="text-h6 mt-4 mb-2">No documents filed yet</div>
+              <p class="text-body-2 mb-6">Upload your first policy, certificate or client file to get started.</p>
+              <v-btn color="primary" @click="showUpload = true">
+                <v-icon left>mdi-upload</v-icon>
+                Upload a document
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
         </v-row>
 
         <!-- Upload Dialog -->

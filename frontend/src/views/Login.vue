@@ -2,10 +2,13 @@
   <v-container fluid fill-height class="login-container">
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
-        <v-card class="pa-6" elevation="10" rounded="lg">
-          <v-card-title class="d-flex justify-center mb-4">
+        <v-card class="pa-6 login-card" rounded="sm">
+          <v-card-title class="d-flex justify-center mb-2">
             <img src="/logo.png" alt="fileofile" class="login-logo" />
           </v-card-title>
+          <div class="d-flex justify-center mb-4">
+            <span class="stamp-badge">Secure Storage</span>
+          </div>
           <v-card-subtitle class="text-center text-body-1 mb-6">
             {{ isRegister ? 'Create your account' : 'Sign in to your account' }}
           </v-card-subtitle>
@@ -55,10 +58,10 @@
 
             <p class="text-center text-caption">
               <template v-if="isRegister">
-                Already have an account? <a href="#" @click.prevent="isRegister = false">Sign in</a>
+                Already have an account? <a href="#" class="brand-link" @click.prevent="isRegister = false">Sign in</a>
               </template>
               <template v-else>
-                Don't have an account? <a href="#" @click.prevent="isRegister = true">Sign up</a>
+                Don't have an account? <a href="#" class="brand-link" @click.prevent="isRegister = true">Sign up</a>
               </template>
             </p>
           </v-form>
@@ -105,13 +108,43 @@ async function handleSubmit() {
 
 <style scoped>
 .login-container {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background:
+    radial-gradient(circle at 25% 15%, rgba(35, 42, 51, 0.07), transparent 55%),
+    radial-gradient(circle at 85% 90%, rgba(217, 183, 118, 0.18), transparent 50%),
+    #EFEAE0;
   min-height: 100vh;
+}
+
+.login-card {
+  position: relative;
+  overflow: visible;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 32px;
+  width: 64px;
+  height: 12px;
+  background-color: #D9B776;
+  border-radius: 2px 2px 0 0;
 }
 
 .login-logo {
   max-width: 220px;
   width: 100%;
   height: auto;
+}
+
+.brand-link {
+  color: #232A33;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #D9B776;
+}
+
+.brand-link:hover {
+  color: #B23A2E;
 }
 </style>

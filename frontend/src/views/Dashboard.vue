@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app permanent>
+    <v-navigation-drawer v-model="drawer" app permanent class="app-drawer">
       <v-list>
         <v-list-item>
           <img src="/logo.png" alt="fileofile" class="sidebar-logo" />
@@ -43,19 +43,19 @@
       <v-container>
         <v-row>
           <v-col cols="12" md="4">
-            <v-card>
+            <v-card class="index-card">
               <v-card-title>Total Documents</v-card-title>
               <v-card-text class="text-h3">{{ stats.total }}</v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" md="4">
-            <v-card>
+            <v-card class="index-card">
               <v-card-title>Recent Uploads</v-card-title>
               <v-card-text class="text-h3">{{ stats.recent }}</v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" md="4">
-            <v-card>
+            <v-card class="index-card">
               <v-card-title>Storage Used</v-card-title>
               <v-card-text class="text-h3">{{ stats.storage }}</v-card-text>
             </v-card>
@@ -64,12 +64,12 @@
 
         <v-row>
           <v-col cols="12">
-            <v-card>
+            <v-card class="index-card">
               <v-card-title>Recent Documents</v-card-title>
-              <v-list>
+              <v-list v-if="recentDocuments.length > 0">
                 <v-list-item v-for="doc in recentDocuments" :key="doc.id">
                   <v-list-item-icon>
-                    <v-icon>mdi-file-document</v-icon>
+                    <v-icon color="primary">mdi-file-document</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>{{ doc.title }}</v-list-item-title>
@@ -80,6 +80,13 @@
                   </v-list-item-action>
                 </v-list-item>
               </v-list>
+              <v-card-text v-else class="text-center py-8">
+                <v-icon size="40" color="secondary">mdi-folder-open-outline</v-icon>
+                <p class="text-body-2 mt-3 mb-4">Nothing filed yet.</p>
+                <v-btn color="primary" size="small" to="/documents">
+                  Go to Documents
+                </v-btn>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>

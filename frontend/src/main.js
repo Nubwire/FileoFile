@@ -9,24 +9,39 @@ import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import '@mdi/font/css/materialdesignicons.css';
+import './assets/theme.css';
 
 const vuetify = createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'light',
+    defaultTheme: 'fileofile',
     themes: {
-      light: {
+      fileofile: {
+        dark: false,
         colors: {
-          primary: '#1976D2',
-          secondary: '#424242',
-          accent: '#82B1FF',
-          error: '#FF5252',
-          info: '#2196F3',
-          success: '#4CAF50',
-          warning: '#FFC107'
+          background: '#EFEAE0',
+          surface: '#F7F4EC',
+          primary: '#232A33',
+          secondary: '#D9B776',
+          error: '#B23A2E',
+          info: '#232A33',
+          success: '#4B6A4F',
+          warning: '#B23A2E',
+          'on-primary': '#EFEAE0',
+          'on-secondary': '#232A33',
+          hairline: '#C7BFAE'
         }
       }
+    }
+  },
+  defaults: {
+    VCard: {
+      elevation: 0,
+      rounded: 'sm'
+    },
+    VBtn: {
+      rounded: 'sm'
     }
   }
 });
